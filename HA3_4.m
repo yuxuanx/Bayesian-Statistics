@@ -3,8 +3,8 @@ mu_dist1 = [1 3]; cov_dist1 = [1 1.5;1.5 3];
 mu_dist2 = [5 1]; cov_dist2 = [3 -1.5;-1.5 1];
 % Gaussian mixture density of samples
 pdf = @(x) 0.7*mvnpdf(x,mu_dist1,cov_dist1) + 0.3*mvnpdf(x,mu_dist2,cov_dist2);
-
-alpha = 0.5;
+ 
+alpha = 4.5;
 cov_p = alpha*eye(2);
 % Proposal density
 proppdf = @(x,mu) mvnpdf(x,mu,cov_p);
@@ -14,10 +14,16 @@ proprnd = @(mu) mvnrnd(mu,cov_p);
 nsamples = 10000; % Number of samples
 start = [1 1]; % Initial start point
 % Generate Markov chain
-[smpl, accept] = mhsample([1 1],nsamples,'pdf',pdf,'proppdf',proppdf,'proprnd',proprnd);
+tic
+% Only keep points after K-th point
+K = 100;
+[smpl, accept] = mhsample([1 1],nsamples,'pdf',pdf,'proppdf',proppdf,...
+    'proprnd',proprnd,'burnin',K);
+toc
+expectedValue = mean(smpl);
 
 figure;
-plot(smpl(1000:end,1),smpl(1000:end,2),'.');hold on
+plot(smpl(:,1),smpl(:,2),'.');hold on
 phi = linspace(0,2*pi,100); % Create grid in interval [0,2*pi]
 mu_1 = [1;3]; % Mean of a 2?D normal random variable
 P_1 = [1 1.5;1.5 3]; % Covariance of a 2?D normal random variable
