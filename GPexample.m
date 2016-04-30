@@ -41,7 +41,7 @@ end
 hold off;
 
 
-keyboard
+% keyboard
 
 %%%%%%%%%%%%%%%%
 % learning given last y

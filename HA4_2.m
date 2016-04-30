@@ -1,7 +1,7 @@
 clc;clear
 %% Generate observation samples
 K = 3; % Number of components
-N = 2000; % Sample size
+N = 20; % Sample size
 mu = [-3;0.6;3]; % Mean value
 sigma = cat(3,1,1,1); % Variance
 p = [0.25,0.45,0.3]; % Weights
@@ -47,7 +47,7 @@ for j=1:20
     end
     u = summ./(nz+1/s); 
     sigma = 1./(nz+1/s);
-    mu_k = normrnd(u,sigma); % Sample mean value
+    mu_k = normrnd(u,sqrt(sigma)); % Sample mean value
     lambda = gamrnd(alpha/K+nz,1);
     Pi = lambda/sum(lambda); % Sample weights
     if j==2||j==4||j==10||j==20
