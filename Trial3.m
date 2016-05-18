@@ -75,4 +75,10 @@ plot(0:T,xt,'-.',1:T-1,s,'-o');
 xlabel('t')
 legend('Trajectory','Expected value of estimated distribution')
 title('Robot Movement')
-
+figure
+colormap('jet')
+surf(1:99, 1:10, pdf', 'MeshStyle', 'row')
+ylabel('Position')
+xlabel('Time step')
+zlabel('PDF')
+view(2)

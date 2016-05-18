@@ -81,5 +81,11 @@ plot(0:T,xt,'-.',1:T,s','-o');
 xlabel('t')
 legend('Trajectory','Expected value of estimated distribution')
 title('Robot Movement')
-
+figure
+colormap('jet')
+surf(1:100, 1:10, pdf', 'MeshStyle', 'row')
+ylabel('Position')
+xlabel('Time step')
+title('Probability density distribution for each time step')
+view(2)
 
